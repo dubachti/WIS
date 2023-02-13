@@ -1,16 +1,17 @@
 from torch.utils.data.dataset import Dataset
-import os
 import pickle
 import torch
-import numpy as np
+
+
 
 class Data(Dataset):
 
     def __init__(self,
                  file_names: list,
+                 class_to_idx: dict,
                  transform = None) -> None:
-
         self.file_names = file_names
+        self.class_to_idx = class_to_idx
         self.transform = transform
 
     # note:
@@ -28,7 +29,7 @@ class Data(Dataset):
         else:
             x = torch.tensor(x)
 
-        return x, y
+        return x, torch.tensor(self.class_to_idx[y])
  
     def __len__(self) -> int:
         return len(self.file_names)
