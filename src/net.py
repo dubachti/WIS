@@ -1,18 +1,35 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision.models import resnet18
+import torch
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 3, 3, 1)
-        self.resnet = resnet18(weights=None)
-        self.fc2 = nn.Linear(1000, 11)
+
+        self.cnn_layers = nn.Sequential(
+            nn.Conv2d(1,2,3,1), 
+            nn.BatchNorm2d(2),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),
+
+            nn.Conv2d(2,2,3,1),
+            nn.BatchNorm2d(2),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),
+
+            nn.Conv2d(2,3,3,1),
+            nn.BatchNorm2d(3),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2)
+        )
+
+        self.linear_layers = nn.Sequential(
+            nn.Linear(588, 11)
+        )
 
     def forward(self, x):
-        x = self.conv1(x)
-        x = F.relu(x)
-        x = self.resnet(x)
-        x = self.fc2(x)
+        x = self.cnn_layers(x)
+        x = torch.flatten(x, 1)
+        x = self.linear_layers(x)
         output = F.log_softmax(x, dim=1)
         return output

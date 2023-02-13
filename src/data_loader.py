@@ -32,15 +32,15 @@ def data_loader(path: str,
 
     transform_train = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.RandomCrop(128, padding=4),
-        transforms.ToTensor(),
-        transforms.Normalize((0.4914), (0.2023)), ## compute real vlaues
+        #transforms.RandomCrop(128, padding=4),
+        transforms.ToTensor()
+        #transforms.Normalize((0.4914), (0.2023)), ## compute real vlaues
     ])
 
     transform_test = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.ToTensor(),
-        transforms.Normalize((0.4914), (0.2023)), ## compute real vlaues
+        transforms.ToTensor()
+        #transforms.Normalize((0.4914), (0.2023)), ## compute real vlaues
     ])
 
     ## class to idx mapping
@@ -55,9 +55,9 @@ def data_loader(path: str,
     testset = Data(test_list, class_to_idx, transform_test)
 
     trainloader = torch.utils.data.DataLoader(
-        trainset, batch_size=batch_size_train, num_workers=2, shuffle=True)
+        trainset, batch_size=batch_size_train, num_workers=4, shuffle=True)
 
     testloader = torch.utils.data.DataLoader(
-        testset, batch_size=batch_size_test, num_workers=2, shuffle=False)
+        testset, batch_size=batch_size_test, num_workers=4, shuffle=False)
 
     return trainloader, testloader, class_to_idx
