@@ -1,35 +1,52 @@
 from torch.utils.data.dataset import Dataset
 import pickle
 import torch
-
-
+import random
 
 class Data(Dataset):
-
     def __init__(self,
                  file_names: list,
-                 class_to_idx: dict,
                  transform = None) -> None:
         self.file_names = file_names
-        self.class_to_idx = class_to_idx
         self.transform = transform
+        self.files_by_speaker = {}
+        for file_name in file_names:
+            speaker = file_name.split('/')[-1].split('-')[0]
+            self.files_by_speaker.setdefault(speaker, []).append(file_name)
 
-    # note:
-    # - maybe it is smarter to load all instance to mem first
-    # - maybe need to enable list as index input
     def __getitem__(self, index):
         if torch.is_tensor(index):
             index = index.tolist()
         file = self.file_names[index]
+
+        # anchor
         with open(file, 'rb') as f:
-            y, x = pickle.load(f)
+            speaker, anchor = pickle.load(f)
+
+        # positive
+        pos_file = random.choice(self.files_by_speaker[speaker])
+        with open(pos_file, 'rb') as f:
+            _, positive = pickle.load(f)
+
+        # negative
+        other_speakers = list(self.files_by_speaker.keys())
+        other_speakers.remove(speaker)
+        neg_speaker = random.choice(other_speakers)
+        neg_file = random.choice(self.files_by_speaker[neg_speaker])
+        with open(neg_file, 'rb') as f:
+            _, negative = pickle.load(f)
+        
 
         if self.transform:
-            x = self.transform(x)
+            anchor = self.transform(anchor)
+            positive = self.transform(positive)
+            negative = self.transform(negative)
         else:
-            x = torch.tensor(x)
+            anchor = torch.tensor(anchor)
+            positive = torch.tensor(positive)
+            negative = torch.tensor(negative)
 
-        return x, torch.tensor(self.class_to_idx[y])
+        return anchor, positive, negative
  
     def __len__(self) -> int:
         return len(self.file_names)

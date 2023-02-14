@@ -1,10 +1,27 @@
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
+from torchvision.models import resnet18
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
+
+        self.conv = nn.Conv2d(1, 3, 3, 1)
+        self.resnet = resnet18()
+        self.fc = nn.Linear(1000, 32)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.resnet(x)
+        x = self.fc(x)
+        output = F.log_softmax(x, dim=1)
+        return output
+
+
+class NetSmall(nn.Module):
+    def __init__(self):
+        super(NetSmall, self).__init__()
 
         self.cnn_layers = nn.Sequential(
             nn.Conv2d(1,2,3,1), 
@@ -24,7 +41,7 @@ class Net(nn.Module):
         )
 
         self.linear_layers = nn.Sequential(
-            nn.Linear(588, 11)
+            nn.Linear(588, 10)
         )
 
     def forward(self, x):
