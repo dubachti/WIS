@@ -5,7 +5,8 @@ from dataset import Data
 
 def data_loader(path: str,
                 batch_size_train: int, 
-                batch_size_test: int):
+                batch_size_test: int,
+                num_workers: int = 8):
 
     print("==> Preparing dataset ...")
 
@@ -20,15 +21,12 @@ def data_loader(path: str,
 
     transform_train = transforms.Compose([
         transforms.ToPILImage(),
-        #transforms.RandomCrop(128, padding=4),
         transforms.ToTensor()
-        #transforms.Normalize((0.4914), (0.2023)), ## compute real vlaues
     ])
 
     transform_test = transforms.Compose([
         transforms.ToPILImage(),
         transforms.ToTensor()
-        #transforms.Normalize((0.4914), (0.2023)), ## compute real vlaues
     ])
 
     train_data, test_data = torch.utils.data.random_split(file_names, [0.8, 0.2], generator=torch.Generator().manual_seed(42))
@@ -40,9 +38,9 @@ def data_loader(path: str,
     testset = Data(test_list, transform_test)
 
     trainloader = torch.utils.data.DataLoader(
-        trainset, batch_size=batch_size_train, num_workers=8, shuffle=True)
+        trainset, batch_size=batch_size_train, num_workers=num_workers, shuffle=True)
 
     testloader = torch.utils.data.DataLoader(
-        testset, batch_size=batch_size_test, num_workers=8, shuffle=False)
+        testset, batch_size=batch_size_test, num_workers=num_workers, shuffle=False)
 
     return trainloader, testloader

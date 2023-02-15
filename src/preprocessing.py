@@ -3,7 +3,7 @@ import librosa
 import numpy as np
 import pickle
 
-def transform_and_store(path: str):
+def transform_and_store(path: str, destination_dir: str):
     y, sr = librosa.load(path)
     S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
     S_dB = librosa.power_to_db(S, ref=np.max)
@@ -14,7 +14,7 @@ def transform_and_store(path: str):
     img = S_dB[:,:128]
     if img.shape != (128,128): return # snipped not long enough
 
-    with open(f'small_data_transformed/{file_name}', 'wb') as f:
+    with open(f'{destination_dir}_transformed/{file_name}', 'wb') as f:
         pickle.dump((reader,img),f)
 
 
@@ -24,7 +24,7 @@ def preprocessing(path: str):
             if not file.endswith('.flac') or file.startswith('.'): continue
     
             with open(os.path.join(root, file), "r") as auto:
-                transform_and_store(auto.name)
+                transform_and_store(auto.name, path)
             print('/', end='')
     print()
 
