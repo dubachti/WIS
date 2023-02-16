@@ -8,14 +8,14 @@ This projects uses a model which updates the weights using Triplet Margin Loss t
 *Note: This is a popular approach for face recognition tasks. It is interesting to see that it works for voices recoginition as well.*
 
 ## Data
-The model is trained on the small version of the (LibriSpeech ASR corpus)[http://www.openslr.org/12/] containing 100 hours of of audiobook data from 250 different readers. 
+The model is trained on the small version of the [LibriSpeech ASR corpus](http://www.openslr.org/12/) containing 100 hours of of audiobook data from 250 different readers. 
 
 In order to feed the audio data into the CNN it firstly has to be transformed into an image. For this a Mel Spectrogram in dB is used, which is a Spectrogram where the frequency axis is mapped to Mel scale in dB. Mel better approximates the way humans perceive sound. dB is used as frequencies not audible for humans can be dropped. The number of frequency bins is 128.
 
 As recordings in the dataset are of different duration, the Spectrograms vary on the y-axis. Therefore they are decomposed to have y-axis length 128 (about 2.9s).
 
 Example of dataset instance transformed to Mel Spectrum in dB:
-![alt text](https://github.com/dubachti/WIS/readme_img/blob//master/mel_spectrogram.png?raw=true)
+![alt text](https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/mel_spectrogram.png)
 
 
 ## Model
@@ -48,4 +48,4 @@ python3 src/gui.py
 a simple tkinter GUI can be accessed, which lets you save speakers using your microphone and then predicts the speaker upon receiving a new voice recording.
 
 Screenshot of the GUI predicting a newly recorded voice.
-![alt text](https://github.com/dubachti/WIS/readme_img/blob//master/gui.png?raw=true)
+![alt text](https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png)
