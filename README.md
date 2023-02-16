@@ -12,7 +12,7 @@ In order to feed the audio data into the CNN it firstly has to be transformed in
 
 As recordings in the dataset are of different duration, the Spectrograms vary on the y-axis. Therefore they are decomposed to have y-axis length 128 (about 2.9s).
 
-Example of dataset instance transformed to Mel Spectrum in dB:
+Example of dataset instance transformed to Mel Spectrogram in dB:
 <img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/mel_spectrogram.png" alt= “” width="55%" height="55%">
 
 ## Model
