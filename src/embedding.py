@@ -4,7 +4,7 @@ import numpy as np
 import librosa
 from net import Net
 
-
+# construct and eval the embedding space used by the GUI
 class Embedding():
     def __init__(self) -> None:
         self.model = Net()
@@ -28,16 +28,13 @@ class Embedding():
         img = torch.tensor(img).view(1,1,128,128)
         self.embeddings[name] = self.model(img)
 
-    def find_speaker(self, y: np.array, sr: int):
+    def find_speaker(self, y: np.array, sr: int) -> list:
         img = self.transform_to_mel(y, sr)
         img = torch.tensor(img).view(1,1,128,128)
         searched = self.model(img)
-        distances = [(name,pairwise_distance(searched, embedding)) for name, embedding in self.embeddings.items()] #change back  to gen
-        name, _ = min(distances, key= lambda x: x[1])
-        return name, distances
+        distances = [(name,pairwise_distance(searched, embedding)) for name, embedding in self.embeddings.items()]
+        distances.sort(key= lambda x: x[1])
+        return distances
 
     def num_embeddings(self) -> int:
         return len(self.embeddings)
-
-
-    

@@ -3,10 +3,9 @@ import pickle
 import torch
 import random
 
+# triplet dataset where each item=(anchor, positive, negative)
 class Data(Dataset):
-    def __init__(self,
-                 file_names: list,
-                 transform = None) -> None:
+    def __init__(self, file_names: list, transform = None) -> None:
         self.file_names = file_names
         self.transform = transform
         self.files_by_speaker = {}
@@ -36,7 +35,6 @@ class Data(Dataset):
         with open(neg_file, 'rb') as f:
             _, negative = pickle.load(f)
         
-
         if self.transform:
             anchor = self.transform(anchor)
             positive = self.transform(positive)

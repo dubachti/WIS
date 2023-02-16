@@ -6,11 +6,11 @@ from dataset import Data
 def data_loader(path: str,
                 batch_size_train: int, 
                 batch_size_test: int,
-                num_workers: int = 8):
+                num_workers: int = 8) -> tuple:
 
     print("==> Preparing dataset ...")
 
-    # get file names for all data instances
+    # get file names of all data instances
     file_names = []
     for root, _, files in os.walk(path):
         for file in files:

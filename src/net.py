@@ -6,7 +6,6 @@ from torchvision.models import resnet18
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-
         self.conv = nn.Conv2d(1, 3, 3, 1)
         self.resnet = resnet18()
         self.fc = nn.Linear(1000, 32)
@@ -17,7 +16,6 @@ class Net(nn.Module):
         x = self.fc(x)
         output = F.log_softmax(x, dim=1)
         return output
-
 
 class NetSmall(nn.Module):
     def __init__(self):

@@ -2,8 +2,10 @@ import os
 import librosa
 import numpy as np
 import pickle
+import argparse
 
-def transform_and_store(path: str, destination_dir: str):
+# cuts audio singal to a length of approx. 3s and transforms it to a mel spectogram
+def transform_and_store(path: str, destination_dir: str) -> None:
     y, sr = librosa.load(path)
     S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
     S_dB = librosa.power_to_db(S, ref=np.max)
@@ -18,7 +20,7 @@ def transform_and_store(path: str, destination_dir: str):
         pickle.dump((reader,img),f)
 
 
-def preprocessing(path: str):
+def preprocessing(path: str) -> None:
     for root, _, files in os.walk(path):
         for file in files:
             if not file.endswith('.flac') or file.startswith('.'): continue
@@ -28,6 +30,10 @@ def preprocessing(path: str):
             print('/', end='')
     print()
 
+def main():
+    parser = argparse.ArgumentParser(description='Preproccess data')
+    parser.add_argument('--path', default='data', type=str, help='path to data')
+    args = parser.parse_args()
+    preprocessing(args.path)
 
-
-preprocessing('small_data')
+if __name__ == '__main__': main()

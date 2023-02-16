@@ -2,7 +2,11 @@ import torch
 import torch.nn as nn
 import time
 
-def train(model, device, train_loader, optimizer, epoch):
+def train(model: nn.Module, 
+          device: torch.device, 
+          train_loader: torch.utils.data.Dataloader, 
+          optimizer: torch.optim.Optimizer, 
+          epoch: int) -> None:
     start = time.time()
     criterion = nn.TripletMarginLoss()
     model.train()
@@ -17,7 +21,10 @@ def train(model, device, train_loader, optimizer, epoch):
     end = time.time()
     print('\n {}: Train set: loss: {:.4f}, Time: {:02d}:{:02}\n'.format(epoch, loss, (int(end-start))//60, (int(end-start))%60))
 
-def test(model, device, test_loader, epoch):
+def test(model: nn.Module, 
+         device: torch.device, 
+         test_loader: torch.utils.data.Dataloader,
+         epoch: int) -> None:
     start = time.time()
     criterion = nn.TripletMarginLoss()
     model.eval()
@@ -35,11 +42,14 @@ def test(model, device, test_loader, epoch):
     print('\n {}: Test set: loss: {:.4f}, Time: {:02d}:{:02d}\n'.format(epoch, test_loss, (int(end-start))//60, (int(end-start))%60))
     return test_loss
 
-def train_model(model, optimizer, trainloader, testloader, n_epochs):
+def train_model(model: nn.Module, 
+                optimizer: torch.optim.Optimizer, 
+                trainloader: torch.utils.data.Dataloader, 
+                testloader: torch.utils.data.Dataloader,  
+                n_epochs: int) -> None:
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     model = model.to(device)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer=optimizer, mode='min', patience=5)
-
 
     test(model=model, device=device, test_loader=testloader, epoch=0)
     for epoch in range(1,n_epochs+1):
@@ -47,7 +57,9 @@ def train_model(model, optimizer, trainloader, testloader, n_epochs):
         err = test(model=model, device=device, test_loader=testloader, epoch=epoch)
         scheduler.step(err)
 
-def predict(model, device, predict_loader):
+def predict(model: nn.Module, 
+            predict_loader: torch.utils.data.Dataloader) -> None:
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     model.eval()
     correct = 0
     total = 0
@@ -62,4 +74,4 @@ def predict(model, device, predict_loader):
             correct += (pos < neg).sum()
             total += pos.shape[0]
 
-    print(f'Predict: {correct}/{total} ({correct/total*100}%)')
+    print(f'Predict: {correct}/{total} ({correct/total*100:.1f}%)')
