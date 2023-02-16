@@ -16,7 +16,7 @@ def train_new_model(model: torch.nn.Module,
 def eval_model(model: torch.nn.Module, 
                args: argparse.Namespace) -> None:
     model.load_state_dict(torch.load('weights/model_weights', map_location=torch.device('cpu')))
-    _, testloader = data_loader(path='small_data_transformed', batch_size_test=32, batch_size_train=32, num_workers=args.num_workers)
+    _, testloader = data_loader(path=args.data, batch_size_test=32, batch_size_train=32, num_workers=args.num_workers)
     predict(model, testloader)
 
 def parse() -> argparse.Namespace:
