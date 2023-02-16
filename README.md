@@ -16,7 +16,7 @@ Example of dataset instance transformed to Mel Spectrum in dB:
 <img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/mel_spectrogram.png" alt= “” width="50%" height="50%">
 
 ## Model
-The model used is ResNet18 with an additional top layer to match the data instance shape and bottom layer to create the embeddings of dim 32. Training is performed using the Triplet Margin Loss.
+The model used is a small CNN with 4 convolutional layers and one fully connected layer which creates the embeddings of dim 10. Training is performed using the Triplet Margin Loss and the optimizer is Adam. Prediction is done by choosing the nearest embedding given by the Euclidean distance. With the described setup we could achieve a prediction accuracy of 96.1% on voice recordings of unheard speakers.
 
 
 ## Train / Evaluate
