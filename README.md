@@ -13,7 +13,7 @@ In order to feed the audio data into the CNN it firstly has to be transformed in
 As recordings in the dataset are of different duration, the Spectrograms vary on the y-axis. Therefore they are decomposed to have y-axis length 128 (about 2.9s).
 
 Example of dataset instance transformed to Mel Spectrum in dB:
-<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/mel_spectrogram.png" alt= “” width="50%" height="50%">
+<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/mel_spectrogram.png" alt= “” width="55%" height="55%">
 
 ## Model
 The model used is a small CNN with 4 convolutional layers and one fully connected layer which creates the embeddings of dim 10. Training is performed using the Triplet Margin Loss and the optimizer is Adam. Prediction is done by choosing the nearest embedding given by the Euclidean distance. With the described setup we could achieve a prediction accuracy of 96.1% on voice recordings of unheard speakers.
@@ -45,4 +45,4 @@ python3 src/gui.py
 opens a simple tkinter GUI which lets you save speakers using your microphone and then predicts the speaker upon receiving a new voice recording.
 
 Screenshot of the GUI predicting a newly recorded voice:
-<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="50%" height="50%">
+<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="55%" height="55%">
