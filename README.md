@@ -20,25 +20,25 @@ The model used is ResNet18 with an additional top layer to match the data instan
 
 
 ## Train / Evaluate
-Firtsly the data instances have to be transofrmed into Mel Spectrograms of shape (128,128). This can be achieved using the command
+Firtsly the data instances have to be transofrmed into Mel Spectrograms of shape (128,128). This can be achieved using the command:
 ```bash
 python3 src/preprocessing.py --path PATH/TO/DATA
 ```
 
-Using the command
+Using the command:
 ```bash
 python3 src/train_model.py --path PATH/TO/TRANSFORMED_DATA --train True
 ```
 it is possible to train the model. Using the flags **--lr**, **--epoch** and **--num_workers** further parameters can be adjusted. Add the end of training the weights will be stored in **weights/**.
 
-Model performance can be evaluated using the command
+Model performance can be evaluated using the command:
 ```bash
 python3 src/train_model.py --path PATH/TO/TRANSFORMED_DATA --train False
 ```
 Note that the used criterion is the Euclidean distance in contrast to the Triplet Margine Loss used in the training and testing of the model.
 
 ## GUI
-The command
+The command:
 ```bash
 python3 src/gui.py
 ```
