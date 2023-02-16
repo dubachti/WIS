@@ -37,11 +37,11 @@ python3 src/train_model.py --path PATH/TO/TRANSFORMED_DATA --train False
 Note that the used criterion is the Euclidean distance in contrast to the Triplet Margine Loss used in the training and testing of the model.
 
 ## GUI
-Using the command
+The command
 ```bash
 python3 src/gui.py
 ```
-a simple tkinter GUI can be accessed, which lets you save speakers using your microphone and then predicts the speaker upon receiving a new voice recording.
+opens a simple tkinter GUI which lets you save speakers using your microphone and then predicts the speaker upon receiving a new voice recording.
 
 Screenshot of the GUI predicting a newly recorded voice.
-<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="40%" height="40%">
+<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="45%" height="45%">
