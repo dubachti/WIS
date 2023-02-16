@@ -94,7 +94,6 @@ class RecorderGUI:
         self.embediding_box.insert('end', f"{self.embedding.num_embeddings()} \t {name}\n")
         self.embediding_box.configure(state='disabled')
 
-    
     def record_callback(self, indata, frames, time, status):
         # Callback function for recording
         if self.recording:
