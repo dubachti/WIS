@@ -4,7 +4,7 @@ import time
 
 def train(model: nn.Module, 
           device: torch.device, 
-          train_loader: torch.utils.data.Dataloader, 
+          train_loader: torch.utils.data.DataLoader, 
           optimizer: torch.optim.Optimizer, 
           epoch: int) -> None:
     start = time.time()
@@ -23,7 +23,7 @@ def train(model: nn.Module,
 
 def test(model: nn.Module, 
          device: torch.device, 
-         test_loader: torch.utils.data.Dataloader,
+         test_loader: torch.utils.data.DataLoader,
          epoch: int) -> None:
     start = time.time()
     criterion = nn.TripletMarginLoss()
@@ -44,8 +44,8 @@ def test(model: nn.Module,
 
 def train_model(model: nn.Module, 
                 optimizer: torch.optim.Optimizer, 
-                trainloader: torch.utils.data.Dataloader, 
-                testloader: torch.utils.data.Dataloader,  
+                trainloader: torch.utils.data.DataLoader, 
+                testloader: torch.utils.data.DataLoader,  
                 n_epochs: int) -> None:
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     model = model.to(device)
@@ -58,7 +58,7 @@ def train_model(model: nn.Module,
         scheduler.step(err)
 
 def predict(model: nn.Module, 
-            predict_loader: torch.utils.data.Dataloader) -> None:
+            predict_loader: torch.utils.data.DataLoader) -> None:
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     model.eval()
     correct = 0
