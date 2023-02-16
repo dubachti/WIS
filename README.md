@@ -1,11 +1,8 @@
 # Who Is Speaking (WIS)
 
-One shot learning speaker recognition 
-
 ## Introduction
-This projects uses a model which updates the weights using Triplet Margin Loss to construct voice audio embeddings. Based on the embeddings one shot learning through a Siamese Network is applied to classify voices.
-
-*Note: This is a popular approach for face recognition tasks. It is interesting to see that it works for voices recoginition as well.*
+A popular approach for face recogintion tasks is training a deep model using Triplet Margin Loss in order to construct face embeddings. Based on the embeddings one shot learning can be performed using a Siamese Network to classify faces. An overview of the approach can be fund [here](https://machinelearningmastery.com/one-shot-learning-with-siamese-networks-contrastive-and-triplet-loss-for-face-recognition/)
+This project applyies the concept to voice recordings in order to enable one shot learning speaker classification.
 
 ## Data
 The model is trained on the small version of the [LibriSpeech ASR corpus](http://www.openslr.org/12/) containing 100 hours of of audiobook data from 250 different readers. 
@@ -47,4 +44,4 @@ python3 src/gui.py
 a simple tkinter GUI can be accessed, which lets you save speakers using your microphone and then predicts the speaker upon receiving a new voice recording.
 
 Screenshot of the GUI predicting a newly recorded voice.
-<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="50%" height="50%">
+<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="40%" height="40%">
