@@ -3,7 +3,7 @@
 ## Introduction
 A popular approach for face recogintion tasks is training a deep model using Triplet Margin Loss in order to construct face embeddings. Based on the embeddings one shot learning can be performed using a Siamese Network to classify faces. An overview of the approach can be fund [here](https://machinelearningmastery.com/one-shot-learning-with-siamese-networks-contrastive-and-triplet-loss-for-face-recognition/).
 
-This project applyies the concept to voice recordings in order to enable one shot learning speaker classification.
+This project applyies the concept to voice recordings in order to enable one shot learning speaker recogintion.
 
 ## Data
 The model is trained on the small version of the [LibriSpeech ASR corpus](http://www.openslr.org/12/) containing 100 hours of of audiobook data from 250 different readers. 
