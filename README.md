@@ -47,4 +47,4 @@ python3 src/gui.py
 a simple tkinter GUI can be accessed, which lets you save speakers using your microphone and then predicts the speaker upon receiving a new voice recording.
 
 Screenshot of the GUI predicting a newly recorded voice.
-![alt text](https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png)
+<img src="https://github.com/dubachti/WIS/blob/da01290fbfd102b19edaead72558e289fec3a529/readme_img/gui.png" alt= “” width="50%" height="50%">
