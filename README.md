@@ -2,4 +2,14 @@
 
 One shot learning speaker recognition 
 
--> still in early development 
+## Introduction
+
+## Setup
+### Model
+
+### Dataset
+
+## Train
+
+## GUI
+
